@@ -18,6 +18,14 @@
 		<cucumber.version>6.8.1</cucumber.version>
 	</properties>
 	<dependencies>
+
+	<!--	API Documentation	-->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+
 	<!-- Testing -->
 		<dependency>
 			<groupId>junit</groupId>
