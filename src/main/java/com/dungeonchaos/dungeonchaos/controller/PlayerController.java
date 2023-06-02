@@ -27,6 +27,6 @@ public class PlayerController {
     @PostMapping(path = "")
     public ResponseEntity<Player> createPlayer(@RequestBody Map<String, String> body) {
         Player createdPlayer = playerService.createPlayer(Long.parseLong(body.get("selectedCharacterId")));
-        return new ResponseEntity<>(createdPlayer, HttpStatus.OK);
+        return new ResponseEntity<>(createdPlayer, HttpStatus.CREATED);
     }
 }
