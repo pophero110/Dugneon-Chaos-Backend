@@ -5,6 +5,7 @@ import com.dungeonchaos.dungeonchaos.model.Character;
 import com.dungeonchaos.dungeonchaos.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -24,7 +25,7 @@ public class CharacterController {
     }
     @GetMapping(path = "")
     @ResponseStatus(HttpStatus.OK)
-    public List<Character> getCharacters() {
-        return this.characterService.getCharacters();
+    public ResponseEntity<List<Character>> getCharacters() {
+        return new ResponseEntity<>(this.characterService.getCharacters(), HttpStatus.OK);
     }
 }
