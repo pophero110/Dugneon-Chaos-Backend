@@ -33,6 +33,10 @@ public class Character {
         this.speed = speed;
     }
 
+    public Character() {
+
+    }
+
     public Long getId() {
         return id;
     }
