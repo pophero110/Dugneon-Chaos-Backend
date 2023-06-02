@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/boards")
@@ -22,8 +23,12 @@ public class BoardController {
 
     @GetMapping(path = "")
     public ResponseEntity<?> getBoard() {
-        char[][] board = boardService.generateBoard();
-        responseBody.put("board", board);
-        return new ResponseEntity<>(responseBody, HttpStatus.OK);
+        Optional<char[][]> boardMatrix = boardService.getBoard();
+        if(boardMatrix.isPresent()) {
+            responseBody.put("board", boardMatrix.get());
+            return new ResponseEntity<>(responseBody, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("No Board", HttpStatus.NOT_FOUND);
+        }
     }
 }

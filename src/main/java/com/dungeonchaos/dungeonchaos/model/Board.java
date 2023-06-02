@@ -12,4 +12,16 @@ public class Board {
 
     @Column
     private String boardJson;
+
+    public Board(String jsonData) {
+        this.boardJson = jsonData;
+    }
+
+    public Board() {
+
+    }
+
+    public String getBoardJson() {
+        return boardJson;
+    }
 }

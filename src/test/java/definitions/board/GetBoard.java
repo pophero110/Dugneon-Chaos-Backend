@@ -1,4 +1,4 @@
-package definitions;
+package definitions.board;
 
 
 import com.dungeonchaos.dungeonchaos.DungeonChaosApplication;
@@ -19,16 +19,16 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Map;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DungeonChaosApplication.class)
-public class BoardDefinitions {
+public class GetBoard {
 
-    private final Logger log = LoggerFactory.getLogger(BoardDefinitions.class);
+    private final Logger log = LoggerFactory.getLogger(GetBoard.class);
     private static final String BASE_URL = "http://localhost:";
 
     private static ResponseEntity response;
+
     @LocalServerPort
     String port;
 
