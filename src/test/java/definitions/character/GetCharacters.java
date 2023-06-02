@@ -70,8 +70,8 @@ public class GetCharacters {
         }
     }
 
-    @Then("the response status code should be {int}")
-    public void theResponseStatusCodeShouldBe(int expectedStatusCode) {
+    @Then("the get characters response status code should be {int}")
+    public void theResponseStatusCodeShouldBe200(int expectedStatusCode) {
         int actualStatusCode = response.getStatusCodeValue();
         assertEquals(expectedStatusCode, actualStatusCode);
     }
