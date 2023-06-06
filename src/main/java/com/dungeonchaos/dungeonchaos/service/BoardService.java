@@ -9,10 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class BoardService {
     private BoardRepository boardRepository;
+
+    private static final char MONSTER_SYMBOL = 'M';
+    private static final double MONSTER_PROBABILITY = 0.2;
+    private static final char[] VALID_LOCATIONS = { 'P' };
+
 
     @Autowired
     BoardService(BoardRepository boardRepository) {
@@ -25,11 +31,36 @@ public class BoardService {
         char[][] boardMatrix;
         try {
             boardMatrix = objectMapper.readValue(board.getBoardJson(), char[][].class);
+            this.generateMonsters(boardMatrix);
         } catch (JsonMappingException e) {
             return Optional.empty();
         } catch (JsonProcessingException e) {
             return Optional.empty();
         }
         return Optional.of(boardMatrix);
+    }
+
+    private void generateMonsters(char[][] boardMatrix) {
+        Random random = new Random();
+
+        for (int i = 0; i < boardMatrix.length; i++) {
+            for (int j = 0; j < boardMatrix[i].length; j++) {
+                char cell = boardMatrix[i][j];
+                if (isValidLocation(cell)) {
+                    if (random.nextDouble() < MONSTER_PROBABILITY) {
+                        boardMatrix[i][j] = MONSTER_SYMBOL;
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean isValidLocation(char cell) {
+        for (char validLocation : VALID_LOCATIONS) {
+            if (cell == validLocation) {
+                return true;
+            }
+        }
+        return false;
     }
 }
