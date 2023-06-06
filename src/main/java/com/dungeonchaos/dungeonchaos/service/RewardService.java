@@ -22,7 +22,7 @@ public class RewardService {
         Reward reward = new Reward();
         reward.setPlayer(player);
         if (opponent.getName().equals("Goblin")) {
-            reward.setRewardType(RewardType.GOLD);
+            reward.setRewardType(RewardType.GOLD_COIN);
             reward.setDescription("Defeat a Goblin and Earn 10 gold coins");
             player.addGoldCoin(10);
         }
