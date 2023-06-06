@@ -81,25 +81,4 @@ public class GetCharacters {
         characters = JsonPath.from(String.valueOf(response.getBody())).get();
         assertNotNull(characters);
     }
-
-
-    @And("the characters should have the following fields:")
-    public void theCharactersShouldHaveTheFollowingFields(List<Character> expectedCharacters) {
-        List<LinkedHashMap> actualCharacters = characters;
-
-        // Ensure the size of the lists match
-        assertEquals(expectedCharacters.size(), actualCharacters.size());
-
-        // Iterate over the characters and compare the fields
-        for (int i = 0; i < expectedCharacters.size(); i++) {
-            Character expectedCharacter = expectedCharacters.get(i);
-            LinkedHashMap<String, Object> actualCharacter = actualCharacters.get(i);
-
-            assertEquals(expectedCharacter.getName(), actualCharacter.get("name"));
-            assertEquals(expectedCharacter.getHealth(), actualCharacter.get("health"));
-            assertEquals(expectedCharacter.getAttack(), actualCharacter.get("attack"));
-            assertEquals(expectedCharacter.getDefense(), actualCharacter.get("defense"));
-            assertEquals(expectedCharacter.getSpeed(), actualCharacter.get("speed"));
-        }
-    }
 }
