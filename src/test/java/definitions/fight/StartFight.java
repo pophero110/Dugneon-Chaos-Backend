@@ -1,7 +1,6 @@
 package definitions.fight;
 
 import com.dungeonchaos.dungeonchaos.DungeonChaosApplication;
-import com.dungeonchaos.dungeonchaos.repository.PlayerRepository;
 import com.dungeonchaos.dungeonchaos.request.FightRequest;
 import definitions.board.GetBoard;
 import io.cucumber.java.en.Given;
@@ -10,7 +9,6 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;

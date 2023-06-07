@@ -18,11 +18,11 @@ public class RewardService {
     }
 
 
-    public Reward createReward(Player player, Opponent opponent) {
+    public Reward createReward(RewardType rewardType, Player player, Opponent opponent) {
         Reward reward = new Reward();
         reward.setPlayer(player);
         if (opponent.getName().equals("Goblin")) {
-            reward.setRewardType(RewardType.GOLD_COIN);
+            reward.setRewardType(rewardType);
             reward.setDescription("Defeat a Goblin and Earn 10 gold coins");
             player.addGoldCoin(10);
         }

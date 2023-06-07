@@ -5,6 +5,7 @@ import com.dungeonchaos.dungeonchaos.model.Reward.Reward;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,8 @@ public class Player extends BaseEntity {
 
 //    @OneToMany(mappedBy = "player")
 //    private List<Reward> rewards;
+    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
+    private Inventory inventory;
 
     @Column
     private int goldCoin;
@@ -37,5 +40,14 @@ public class Player extends BaseEntity {
 
     public void addGoldCoin(int goldCoin) {
         this.goldCoin += goldCoin;
+    }
+
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory =inventory;
     }
 }
