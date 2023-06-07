@@ -101,7 +101,7 @@ public class FightService {
         if (fight.getFightResult().equals(FightResult.VICTORY_PLAYER)) {
             Player player = fight.getPlayer();
             Opponent opponent = fight.getOpponent();
-            return rewardService.createReward(player, opponent);
+            return rewardService.createReward(RewardType.GOLD_COIN, player, opponent);
         }
         throw new InformationInvalidException("You don't win the fight!");
     }
