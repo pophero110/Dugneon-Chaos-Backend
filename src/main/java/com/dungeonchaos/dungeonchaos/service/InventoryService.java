@@ -4,6 +4,7 @@ import com.dungeonchaos.dungeonchaos.exception.InformationNotFoundException;
 import com.dungeonchaos.dungeonchaos.model.Inventory;
 import com.dungeonchaos.dungeonchaos.model.InventoryItem;
 import com.dungeonchaos.dungeonchaos.model.Item.Item;
+import com.dungeonchaos.dungeonchaos.model.Item.ItemType;
 import com.dungeonchaos.dungeonchaos.repository.InventoryItemRepository;
 import com.dungeonchaos.dungeonchaos.repository.InventoryRepository;
 import com.dungeonchaos.dungeonchaos.repository.ItemRepository;
@@ -50,11 +51,10 @@ public class InventoryService {
         Inventory inventory = inventoryRepository.findById(inventoryId).orElseThrow(() -> new InformationNotFoundException("Inventory is not found with id " + inventoryId));
         InventoryItem inventoryItem = inventoryItemRepository.findByInventory_IdAndItem_Id(inventoryId, itemId).orElseThrow(() -> new InformationNotFoundException("Item is not found with id " + itemId));
         inventoryItem.decreaseItemQuantityByOne();
-        if (inventoryItem.getItemQuantity() <= 0) {
+        if (inventoryItem.getItemQuantity() <= 0 || inventoryItem.getItem().getType().equals(ItemType.EQUIPMENT)) {
             inventoryItemRepository.delete(inventoryItem);
             inventory.removeInventoryItem(inventoryItem);
         }
-        ;
         return inventoryRepository.save(inventory);
     }
 }
