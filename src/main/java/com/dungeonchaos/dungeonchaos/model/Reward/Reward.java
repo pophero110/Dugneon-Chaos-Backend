@@ -22,6 +22,9 @@ public class Reward {
     @Column
     private String description;
 
+    @Column
+    private Long rewardItemId;
+
     public RewardType getRewardType() {
         return rewardType;
     }
@@ -42,7 +45,11 @@ public class Reward {
         this.player = player;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Long getRewardItemId() {
+        return rewardItemId;
+    }
+
+    public void setRewardItemId(Long itemId) {
+        this.rewardItemId = itemId;
     }
 }
