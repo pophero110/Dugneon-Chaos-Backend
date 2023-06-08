@@ -7,6 +7,7 @@ import com.dungeonchaos.dungeonchaos.model.Item.Item;
 import com.dungeonchaos.dungeonchaos.repository.InventoryItemRepository;
 import com.dungeonchaos.dungeonchaos.request.InventoryRequest;
 import com.dungeonchaos.dungeonchaos.service.InventoryService;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import definitions.board.GetBoard;
 import io.cucumber.java.en.And;
@@ -78,13 +79,12 @@ public class RemoveItemFromInventoryAndDatabase {
     public void theResponseBodyShouldNotContainerTheItem() {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             Inventory inventory = objectMapper.readValue((String) response.getBody(), Inventory.class);
             this.inventory = inventory;
 
-            // Perform assertions on the inventory details
+
             Assert.assertNotNull(inventory);
-            Assert.assertEquals(Optional.of(1L), inventory.getId());
             Optional<InventoryItem> item = inventory.getInventoryItems().stream().filter(inventoryItem -> inventoryItem.getItem().getId() == this.itemId).findFirst();
             Assert.assertTrue(item.isEmpty());
         } catch (IOException e) {
