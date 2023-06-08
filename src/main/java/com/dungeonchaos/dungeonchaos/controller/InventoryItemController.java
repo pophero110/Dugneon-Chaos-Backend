@@ -47,4 +47,12 @@ public class InventoryItemController {
         Player player = inventoryItemService.unequipArmor(inventoryItemId);
         return new ResponseEntity<>(player, HttpStatus.OK);
     }
+
+
+    @PutMapping("/{inventoryItemId}/consumePotion")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Player> consumePotion(@PathVariable Long inventoryItemId) {
+        Player player = inventoryItemService.consumePotion(inventoryItemId);
+        return new ResponseEntity<>(player, HttpStatus.OK);
+    }
 }
