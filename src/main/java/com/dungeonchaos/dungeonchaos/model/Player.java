@@ -14,8 +14,9 @@ public class Player extends BaseEntity {
     @OneToMany(mappedBy = "player")
     private List<Fight> fights;
 
-//    @OneToMany(mappedBy = "player")
-//    private List<Reward> rewards;
+    @OneToMany(mappedBy = "player")
+    private List<Reward> rewards;
+
     @OneToOne(mappedBy = "player", cascade = CascadeType.ALL)
     private Inventory inventory;
 
