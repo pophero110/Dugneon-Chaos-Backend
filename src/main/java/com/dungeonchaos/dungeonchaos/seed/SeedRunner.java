@@ -182,6 +182,7 @@ public class SeedRunner implements ApplicationRunner {
             InventoryItem inventoryItem3 = new InventoryItem();
             inventoryItem3.setInventory(inventory);
             inventoryItem3.setItem(item3);
+            inventoryItem3.setItemQuantity(2);
 
             InventoryItem inventoryItem4 = new InventoryItem();
             inventoryItem4.setInventory(inventory);
@@ -241,7 +242,7 @@ public class SeedRunner implements ApplicationRunner {
         item.setType(ItemType.POTION);
         item.setRarity(Rarity.COMMON);
         ((Potion) item).setPotionType(PotionType.HEALTH);
-        ((Potion) item).setPotionEffect("Restores 50 health points");
+        ((Potion) item).setPotionEffect("Restores 20 health points");
         ((Potion) item).setPotionDuration(0);
     }
 }

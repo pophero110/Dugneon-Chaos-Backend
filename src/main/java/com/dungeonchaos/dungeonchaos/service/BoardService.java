@@ -16,8 +16,10 @@ public class BoardService {
     private BoardRepository boardRepository;
 
     private static final char MONSTER_SYMBOL = 'M';
+    private static final char TREASURE_SYMBOL = 'T';
     private static final double MONSTER_PROBABILITY = 0.2;
     private static final char[] VALID_LOCATIONS = { 'P' };
+    private static final int NUMBER_OF_TREASURE_PER_LEVEL = 1;
 
 
     @Autowired
@@ -31,6 +33,7 @@ public class BoardService {
         char[][] boardMatrix;
         try {
             boardMatrix = objectMapper.readValue(board.getBoardJson(), char[][].class);
+            this.generateTreasure(boardMatrix);
             this.generateMonsters(boardMatrix);
         } catch (JsonMappingException e) {
             return Optional.empty();
@@ -51,6 +54,20 @@ public class BoardService {
                         boardMatrix[i][j] = MONSTER_SYMBOL;
                     }
                 }
+            }
+        }
+    }
+
+    private void generateTreasure(char[][] boardMatrix) {
+        Random random = new Random();
+        int count = 0;
+        while (count < NUMBER_OF_TREASURE_PER_LEVEL) {
+            int row = random.nextInt(boardMatrix.length);
+            int col = random.nextInt(boardMatrix[row].length);
+            char cell = boardMatrix[row][col];
+            if (isValidLocation(cell)) {
+                boardMatrix[row][col] = TREASURE_SYMBOL;
+                count++;
             }
         }
     }

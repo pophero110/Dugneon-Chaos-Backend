@@ -2,7 +2,7 @@ package com.dungeonchaos.dungeonchaos.model.Reward;
 
 public enum RewardType {
     GOLD_COIN("GOLD_COIN"),
-    EQUIPMENT("EQUIPMENT");
+    ITEM("ITEM");
 
     private final String value;
 

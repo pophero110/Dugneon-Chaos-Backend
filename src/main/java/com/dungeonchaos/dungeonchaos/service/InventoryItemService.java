@@ -4,10 +4,7 @@ import com.dungeonchaos.dungeonchaos.exception.InformationInvalidException;
 import com.dungeonchaos.dungeonchaos.exception.InformationNotFoundException;
 import com.dungeonchaos.dungeonchaos.model.Inventory;
 import com.dungeonchaos.dungeonchaos.model.InventoryItem;
-import com.dungeonchaos.dungeonchaos.model.Item.Equipment;
-import com.dungeonchaos.dungeonchaos.model.Item.EquipmentType;
-import com.dungeonchaos.dungeonchaos.model.Item.Item;
-import com.dungeonchaos.dungeonchaos.model.Item.ItemType;
+import com.dungeonchaos.dungeonchaos.model.Item.*;
 import com.dungeonchaos.dungeonchaos.model.Player;
 import com.dungeonchaos.dungeonchaos.repository.InventoryItemRepository;
 import com.dungeonchaos.dungeonchaos.repository.InventoryRepository;
@@ -23,14 +20,20 @@ public class InventoryItemService {
     private ItemRepository itemRepository;
     private InventoryItemRepository inventoryItemRepository;
     private PlayerRepository playerRepository;
+    private InventoryService inventoryService;
 
 
     @Autowired
-    InventoryItemService(InventoryRepository inventoryRepository, ItemRepository itemRepository, InventoryItemRepository inventoryItemRepository, PlayerRepository playerRepository) {
+    InventoryItemService(InventoryRepository inventoryRepository,
+                         ItemRepository itemRepository,
+                         InventoryItemRepository inventoryItemRepository,
+                         PlayerRepository playerRepository,
+                         InventoryService inventoryService) {
         this.inventoryRepository = inventoryRepository;
         this.itemRepository = itemRepository;
         this.inventoryItemRepository = inventoryItemRepository;
         this.playerRepository = playerRepository;
+        this.inventoryService = inventoryService;
     }
 
     public Player equipWeapon(Long inventoryItemId) {
@@ -47,6 +50,32 @@ public class InventoryItemService {
 
     public Player unequipArmor(Long inventoryItemId) {
         return unequipItem(inventoryItemId, "armor");
+    }
+
+    public Player consumePotion(Long inventoryItemId) {
+        InventoryItem inventoryItem = getInventoryItem(inventoryItemId);
+        Item item = inventoryItem.getItem();
+        Inventory inventory = inventoryItem.getInventory();
+        Player player = inventoryItem.getInventory().getPlayer();
+        if (!item.getType().equals(ItemType.POTION)) {
+            throw new InformationInvalidException("You can not drink it! " + item.getName() + " is not a potion");
+        }
+        if (((Potion) item).getPotionType().equals(PotionType.HEALTH)) {
+            int effectValue = getPotionEffectNumber(((Potion) item).getPotionEffect());
+            player.setHealth(player.getHealth() + effectValue);
+            inventoryItem.decreaseItemQuantityByOne();
+            if (inventoryItem.getItemQuantity() <= 0) {
+                inventory.removeInventoryItem(inventoryItem);
+                inventoryItemRepository.delete(inventoryItem);
+            }
+        }
+        return inventoryRepository.save(inventory).getPlayer();
+    }
+
+    private int getPotionEffectNumber(String potionEffect) {
+        String numberString = potionEffect.replaceAll("\\D+", "");
+        int number = Integer.parseInt(numberString);
+        return number;
     }
 
     private Player equipItem(Long inventoryItemId, EquipmentType expectedType, String itemType) {
