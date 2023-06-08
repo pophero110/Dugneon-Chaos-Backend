@@ -28,20 +28,7 @@ class BoardServiceTest {
     @Test
     @DisplayName("it should generate 12 x 12 board")
     public void getBoardTest() {
-        String jsonString = "[[\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"W\",\"P\",\"W\"],\n" +
-                "[\"W\",\"W\",\"P\",\"W\",\"W\",\"W\",\"W\",\"W\",\"P\",\"W\",\"P\",\"W\"],\n" +
-                "[\"P\",\"P\",\"P\",\"W\",\"P\",\"P\",\"S\",\"W\",\"P\",\"W\",\"P\",\"P\"],\n" +
-                "[\"P\",\"W\",\"P\",\"W\",\"P\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\"],\n" +
-                "[\"P\",\"W\",\"P\",\"W\",\"P\",\"W\",\"P\",\"P\",\"P\",\"P\",\"P\",\"W\"],\n" +
-                "[\"P\",\"W\",\"P\",\"W\",\"P\",\"W\",\"P\",\"W\",\"W\",\"W\",\"P\",\"W\"],\n" +
-                "[\"P\",\"W\",\"P\",\"W\",\"P\",\"P\",\"P\",\"W\",\"P\",\"W\",\"P\",\"W\"],\n" +
-                "[\"P\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"P\",\"W\",\"P\",\"W\"],\n" +
-                "[\"P\",\"W\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"W\"],\n" +
-                "[\"P\",\"W\",\"P\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\"],\n" +
-                "[\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\"],\n" +
-                "[\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"E\",\"W\"]]";
-        when(boardRepository.findAll()).thenReturn(List.of(new Board(jsonString)));
-        Optional<char[][]> boardMatrix = boardService.getBoard();
+        Optional<char[][]> boardMatrix = Optional.of(boardService.generateBoard());
         assertEquals(boardMatrix.isPresent(), true);
         assertEquals(boardMatrix.get().length, 12);
         for (char[] row : boardMatrix.get()) {

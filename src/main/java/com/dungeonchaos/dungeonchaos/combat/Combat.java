@@ -9,7 +9,7 @@ import java.util.Random;
 public class Combat {
 
     public static FightResult performAttack(BaseEntity performer, BaseEntity target) {
-        applyDamage(target,performer.getAttack());
+        applyDamage(target,performer.getAttack() - target.getDefense());
         if (target.getHealth() <= 0) {
             if (performer instanceof Player) {
                 return FightResult.VICTORY_PLAYER;
@@ -53,6 +53,9 @@ public class Combat {
     }
 
     private static void applyDamage(BaseEntity target, int damage) {
+        if(damage <= 0) {
+            return;
+        }
         int currentHealth = target.getHealth();
         int newHealth = currentHealth - damage;
         target.setHealth(newHealth);
