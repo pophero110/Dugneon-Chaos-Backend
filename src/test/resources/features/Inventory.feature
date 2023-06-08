@@ -28,6 +28,6 @@ Feature: Inventory Rest API functionalities
 
   Scenario: Remove item from inventory and database if quantity is 1
     Given an inventory of ID 1 with the item is available
-    When I sends a PUT request to "/api/inventories/1/removeItem" with the the item ID 3
+    When I sends a PUT request to "/api/inventories/1/removeItem" with the the item ID 4
     Then the response body should not container the item
     And the item should be deleted in database

@@ -17,8 +17,8 @@ public class BoardService {
 
     private static final char MONSTER_SYMBOL = 'M';
     private static final char TREASURE_SYMBOL = 'T';
-    private static final double MONSTER_PROBABILITY = 0.2;
-    private static final char[] VALID_LOCATIONS = { 'P' };
+    private static final double MONSTER_PROBABILITY = 0.15;
+    private static final char[] VALID_LOCATIONS = {'P'};
     private static final int NUMBER_OF_TREASURE_PER_LEVEL = 1;
 
 
@@ -27,20 +27,12 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    public Optional<char[][]> getBoard() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        Board board = boardRepository.findAll().get(0);
-        char[][] boardMatrix;
-        try {
-            boardMatrix = objectMapper.readValue(board.getBoardJson(), char[][].class);
-            this.generateTreasure(boardMatrix);
-            this.generateMonsters(boardMatrix);
-        } catch (JsonMappingException e) {
-            return Optional.empty();
-        } catch (JsonProcessingException e) {
-            return Optional.empty();
-        }
-        return Optional.of(boardMatrix);
+    public char[][] generateBoard() {
+        MazeGenerator mazeGenerator = new MazeGenerator(12, 12);
+        char[][] boardMatrix = mazeGenerator.generateMaze();
+        this.generateTreasure(boardMatrix);
+        this.generateMonsters(boardMatrix);
+        return boardMatrix;
     }
 
     private void generateMonsters(char[][] boardMatrix) {
