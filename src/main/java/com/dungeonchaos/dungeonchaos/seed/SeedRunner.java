@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,12 +46,15 @@ public class SeedRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        createCharactersAndPlayer();
-        createBoard();
-        createMonsters();
-        createFight();
-        createItemsAndInventory();
-        createInventory();
+        List<Player> players = playerRepository.findAll();
+        if (players.isEmpty()) {
+            createCharactersAndPlayer();
+            createBoard();
+            createMonsters();
+            createFight();
+            createItemsAndInventory();
+            createInventory();
+        }
     }
 
     private void createBoard() {
@@ -93,11 +98,11 @@ public class SeedRunner implements ApplicationRunner {
     }
 
     private void createMonsters() {
-        Monster goblin = new Monster("Goblin", 20, 15, 0, 20,1);
-        Monster badGnome = new Monster("Bad Gnome", 20, 20, 0, 30,2);
-        Monster zombie = new Monster("Undead", 30, 20, 2, 5,3);
-        Monster troll = new Monster("Troll", 40, 30, 10, 10,4);
-        Monster dragon = new Monster("Dragon", 50, 35, 10, 30,5);
+        Monster goblin = new Monster("Goblin", 20, 15, 0, 20, 1);
+        Monster badGnome = new Monster("Bad Gnome", 20, 20, 0, 30, 2);
+        Monster zombie = new Monster("Undead", 30, 20, 2, 5, 3);
+        Monster troll = new Monster("Troll", 40, 30, 10, 10, 4);
+        Monster dragon = new Monster("Dragon", 50, 35, 10, 30, 5);
         monsterRepository.save(goblin);
         monsterRepository.save(badGnome);
         monsterRepository.save(zombie);
@@ -224,7 +229,6 @@ public class SeedRunner implements ApplicationRunner {
             inventoryItem9.setItem(item9);
 
 
-
             Set<InventoryItem> inventoryItems = new HashSet<>();
             inventoryItems.add(inventoryItem);
             inventoryItems.add(inventoryItem2);
@@ -242,6 +246,7 @@ public class SeedRunner implements ApplicationRunner {
 
         }
     }
+
     private void createInventory() {
         Inventory emtpyInventory = new Inventory();
         inventoryRepository.save(emtpyInventory);
@@ -251,7 +256,7 @@ public class SeedRunner implements ApplicationRunner {
 
         InventoryItem inventoryItem = new InventoryItem();
         Optional<Item> item3 = itemRepository.findById(3L);
-        if(item3.isPresent()) {
+        if (item3.isPresent()) {
             inventoryItem.setItem(item3.get());
             inventoryItem.setInventory(inventoryWithOneItem);
             inventoryItem.setItemQuantity(2);
