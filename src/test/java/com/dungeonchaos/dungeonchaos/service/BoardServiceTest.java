@@ -41,7 +41,7 @@ class BoardServiceTest {
                 "[\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\",\"P\"],\n" +
                 "[\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"W\",\"E\",\"W\"]]";
         when(boardRepository.findAll()).thenReturn(List.of(new Board(jsonString)));
-        Optional<char[][]> boardMatrix = boardService.getBoard();
+        Optional<char[][]> boardMatrix = Optional.of(boardService.generateBoard());
         assertEquals(boardMatrix.isPresent(), true);
         assertEquals(boardMatrix.get().length, 12);
         for (char[] row : boardMatrix.get()) {
