@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.dungeonchaos.dungeonchaos
+web: java $JAVA_OPTS -cp target/classes:target/dependency/* com.dungeonchaos.dungeonchaos.DungeonChaosApplication
