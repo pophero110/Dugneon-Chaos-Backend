@@ -94,6 +94,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.dungeonchaos.dungeonchaos.DungeonChaosApplication</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
