@@ -8,6 +8,12 @@ import java.util.Random;
 
 public class Combat {
 
+    /**
+     * Performs an attack action in a fight between two entities.
+     * @param performer The entity performing the attack.
+     * @param target The entity being attacked.
+     * @return The result of the attack.
+     */
     public static FightResult performAttack(BaseEntity performer, BaseEntity target) {
         applyDamage(target,performer.getAttack() - target.getDefense());
         if (target.getHealth() <= 0) {
@@ -20,6 +26,12 @@ public class Combat {
         return FightResult.ONGOING;
     }
 
+    /**
+     * Performs a flee action in a fight between two entities.
+     * @param performer The entity attempting to flee.
+     * @param target The entity being fled from.
+     * @return The result of the flee action.
+     */
     public static FightResult performFlee(BaseEntity performer, BaseEntity target) {
         int performerSpeed = performer.getSpeed();
         int targetSpeed = target.getSpeed();
@@ -37,6 +49,12 @@ public class Combat {
         }
     }
 
+    /**
+     * Performs a defend action in a fight between two entities.
+     * @param performer The entity performing the defense.
+     * @param target The entity being defended.
+     * @return The result of the defend action.
+     */
     public static FightResult performDefend(BaseEntity performer, BaseEntity target) {
         int performerDefense = performer.getDefense();
         int targetAttack = target.getAttack();
@@ -52,6 +70,11 @@ public class Combat {
         return FightResult.ONGOING;
     }
 
+    /**
+     * Applies damage to a target entity.
+     * @param target The entity to apply the damage to.
+     * @param damage The amount of damage to apply.
+     */
     private static void applyDamage(BaseEntity target, int damage) {
         if(damage <= 0) {
             return;
