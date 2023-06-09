@@ -9,4 +9,4 @@ Feature: Player Rest API functionalities
     And the response body should contain a player object
     And the player object should have the following fields:
       | name    | health | attack | defense | speed |
-      | Warrior | 90     | 10     | 20      | 30    |
+      | Warrior | 50     | 10     | 10      | 20    |

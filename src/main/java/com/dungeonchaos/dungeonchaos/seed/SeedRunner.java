@@ -80,32 +80,33 @@ public class SeedRunner implements ApplicationRunner {
     }
 
     private void createCharactersAndPlayer() {
-        Character warrior = new Character("Warrior", 90, 10, 20, 30);
-        Character rogue = new Character("Rogue", 80, 30, 10, 40);
-        Character slow = new Character("Slow Speed", 80, 15, 10, 0);
-        Character fast = new Character("Fast Speed", 80, 15, 10, 999);
+        Character warrior = new Character("Warrior", 50, 10, 10, 20);
+        Character rogue = new Character("Rogue", 40, 15, 5, 40);
         Player playerWarrior = new Player(warrior);
-        Player playerRogue = new Player(rogue);
-        Player playerSlow = new Player(slow);
-        Player playerFast = new Player(fast);
+        playerWarrior.setAttack(100);
+        playerWarrior.setSpeed(100);
+        playerWarrior.setDifficulty(5);
+        playerWarrior.setIdentityKey("1945538");
         playerRepository.save(playerWarrior);
-        playerRepository.save(playerRogue);
-        playerRepository.save(playerSlow);
-        playerRepository.save(playerFast);
         characterRepository.save(warrior);
         characterRepository.save(rogue);
-        characterRepository.save(slow);
-        characterRepository.save(fast);
     }
 
     private void createMonsters() {
-        Monster goblin = new Monster("Goblin", 30, 5, 0, 20);
-
+        Monster goblin = new Monster("Goblin", 20, 15, 0, 20,1);
+        Monster badGnome = new Monster("Bad Gnome", 20, 20, 0, 30,2);
+        Monster zombie = new Monster("Undead", 30, 20, 2, 5,3);
+        Monster troll = new Monster("Troll", 40, 30, 10, 10,4);
+        Monster dragon = new Monster("Dragon", 50, 35, 10, 30,5);
         monsterRepository.save(goblin);
+        monsterRepository.save(badGnome);
+        monsterRepository.save(zombie);
+        monsterRepository.save(troll);
+        monsterRepository.save(dragon);
     }
 
     private void createFight() {
-        fightService.startFight(1L, 1L);
+        fightService.startFight(1L);
     }
 
     private void createItemsAndInventory() {
@@ -160,6 +161,20 @@ public class SeedRunner implements ApplicationRunner {
             ((Equipment) item7).setAttack(10);
             ((Equipment) item7).setEquipmentType(EquipmentType.WEAPON);
 
+            Item item8 = new Equipment();
+            item8.setName("Relic Blade Knife");
+            item8.setType(ItemType.EQUIPMENT);
+            item8.setRarity(Rarity.RARE);
+            ((Equipment) item8).setAttack(15);
+            ((Equipment) item8).setEquipmentType(EquipmentType.WEAPON);
+
+            Item item9 = new Equipment();
+            item9.setName("Cross Shield");
+            item9.setType(ItemType.EQUIPMENT);
+            item9.setRarity(Rarity.RARE);
+            ((Equipment) item9).setDefense(15);
+            ((Equipment) item9).setEquipmentType(EquipmentType.ARMOR);
+
             itemRepository.save(item1);
             itemRepository.save(item2);
             itemRepository.save(item3);
@@ -167,6 +182,8 @@ public class SeedRunner implements ApplicationRunner {
             itemRepository.save(item5);
             itemRepository.save(item6);
             itemRepository.save(item7);
+            itemRepository.save(item8);
+            itemRepository.save(item9);
 
             InventoryItem inventoryItem = new InventoryItem();
             inventoryItem.setInventory(inventory);
@@ -198,6 +215,14 @@ public class SeedRunner implements ApplicationRunner {
             inventoryItem7.setInventory(inventory);
             inventoryItem7.setItem(item7);
 
+            InventoryItem inventoryItem8 = new InventoryItem();
+            inventoryItem8.setInventory(inventory);
+            inventoryItem8.setItem(item8);
+
+            InventoryItem inventoryItem9 = new InventoryItem();
+            inventoryItem9.setInventory(inventory);
+            inventoryItem9.setItem(item9);
+
 
 
             Set<InventoryItem> inventoryItems = new HashSet<>();
@@ -208,6 +233,8 @@ public class SeedRunner implements ApplicationRunner {
             inventoryItems.add(inventoryItem5);
             inventoryItems.add(inventoryItem6);
             inventoryItems.add(inventoryItem7);
+            inventoryItems.add(inventoryItem8);
+            inventoryItems.add(inventoryItem9);
 
             inventory.setInventoryItems(inventoryItems);
 

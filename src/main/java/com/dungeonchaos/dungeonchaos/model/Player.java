@@ -5,7 +5,6 @@ import com.dungeonchaos.dungeonchaos.model.Reward.Reward;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -22,6 +21,12 @@ public class Player extends BaseEntity {
 
     @Column
     private int goldCoin;
+
+    @Column
+    private  int difficulty = 1;
+
+    @Column(unique = true)
+    private String identityKey;
 
     public Player(Character character) {
         this.setName(character.getName());
@@ -50,5 +55,25 @@ public class Player extends BaseEntity {
 
     public void setInventory(Inventory inventory) {
         this.inventory =inventory;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void increaseDifficultyByOne() {
+        this.difficulty++;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getIdentityKey() {
+        return identityKey;
+    }
+
+    public void setIdentityKey(String identityKey) {
+        this.identityKey = identityKey;
     }
 }

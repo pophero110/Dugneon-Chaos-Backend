@@ -1,5 +1,6 @@
 package com.dungeonchaos.dungeonchaos.service;
 
+import com.dungeonchaos.dungeonchaos.exception.InformationInvalidException;
 import com.dungeonchaos.dungeonchaos.exception.InformationNotFoundException;
 import com.dungeonchaos.dungeonchaos.model.Character;
 import com.dungeonchaos.dungeonchaos.model.Inventory;
@@ -30,6 +31,7 @@ public class PlayerService {
                 () -> new InformationNotFoundException("Character is not found with id: " + selectedCharacterId)
         );
         Player createdPlayer = new Player(character);
+        createdPlayer.setIdentityKey(generateIdentityKey(createdPlayer.getId()));
         Inventory inventory = new Inventory();
         createdPlayer.setInventory(inventory);
         inventory.setPlayer(createdPlayer);
@@ -40,5 +42,26 @@ public class PlayerService {
     public Player getPlayer(Long playerId) {
         Player player = this.playerRepository.findById(playerId).orElseThrow(() -> new InformationNotFoundException("Player is not found with id " + playerId));
         return player;
+    }
+
+    public Player getPlayerByIdentity(String identityKey) {
+        Player player = this.playerRepository.findByIdentityKey(identityKey).orElseThrow(() -> new InformationNotFoundException("Player is not found with identity key " + identityKey));
+        if (player.getHealth() <= 0) throw new InformationInvalidException("Your character is dead");
+        return player;
+    }
+
+    public Player increasePlayerDifficultyByOne(Long playerId) {
+        Player player = this.playerRepository.findById(playerId).orElseThrow(() -> new InformationNotFoundException("Player is not found with id " + playerId));
+        player.increaseDifficultyByOne();
+        return playerRepository.save(player);
+    }
+
+
+    private String generateIdentityKey(Long playerId) {
+        // Concatenate the player's ID with a random number
+        String keyString = Long.toString(1L) + (int) (Math.random() * 10000000);
+
+        // Convert the key to an integer and return it
+        return keyString;
     }
 }

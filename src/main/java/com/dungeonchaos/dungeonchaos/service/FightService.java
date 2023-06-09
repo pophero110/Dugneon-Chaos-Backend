@@ -20,7 +20,8 @@ import com.dungeonchaos.dungeonchaos.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FightService {
@@ -39,9 +40,9 @@ public class FightService {
         this.rewardService = rewardService;
     }
 
-    public Fight startFight(Long playerId, Long monsterId) {
-        Monster monster = monsterRepository.findById(monsterId).orElseThrow(() -> new InformationNotFoundException("Monster is not found with id " + monsterId));
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new InformationNotFoundException("Player is not found with id " + playerId));
+    public Fight startFight(Long playerId) {
+    Player player = playerRepository.findById(playerId).orElseThrow(() -> new InformationNotFoundException("Player is not found with id " + playerId));
+        Monster monster = getRandomMonster(player.getDifficulty());
         Opponent opponent = new Opponent(monster);
         Fight fight = new Fight(player, opponent);
         opponent.setFight(fight);
@@ -105,4 +106,12 @@ public class FightService {
         }
         throw new InformationInvalidException("You don't win the fight!");
     }
+
+
+    private Monster getRandomMonster(int playerDifficulty) {
+        List<Monster> monsters = monsterRepository.findAll();
+        List<Monster> filteredMonsters = monsters.stream().filter(monster -> monster.getDiffculty() <= playerDifficulty).collect(Collectors.toList());
+        int index = (int) (Math.random() * filteredMonsters.size());
+        return filteredMonsters.get(index);
+    };
 }

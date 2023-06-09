@@ -7,12 +7,11 @@ import com.dungeonchaos.dungeonchaos.request.InventoryRequest;
 import com.dungeonchaos.dungeonchaos.service.InventoryService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import definitions.board.GetBoard;
+import definitions.board.GenerateBoard;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.path.json.JsonPath;
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ import java.util.Optional;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DungeonChaosApplication.class)
 public class RemoveItemFromInventory {
 
-    private final Logger log = LoggerFactory.getLogger(GetBoard.class);
+    private final Logger log = LoggerFactory.getLogger(GenerateBoard.class);
     private static final String BASE_URL = "http://localhost:";
 
     private static ResponseEntity response;

@@ -2,7 +2,7 @@ package definitions.fight;
 
 import com.dungeonchaos.dungeonchaos.DungeonChaosApplication;
 import com.dungeonchaos.dungeonchaos.request.FightRequest;
-import definitions.board.GetBoard;
+import definitions.board.GenerateBoard;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DungeonChaosApplication.class)
 public class StartFight {
-    private final Logger log = LoggerFactory.getLogger(GetBoard.class);
+    private final Logger log = LoggerFactory.getLogger(GenerateBoard.class);
     private static final String BASE_URL = "http://localhost:";
 
     private static ResponseEntity response;

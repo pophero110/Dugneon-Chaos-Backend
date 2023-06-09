@@ -6,7 +6,7 @@ import com.dungeonchaos.dungeonchaos.model.InventoryItem;
 import com.dungeonchaos.dungeonchaos.request.InventoryRequest;
 import com.dungeonchaos.dungeonchaos.service.InventoryService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import definitions.board.GetBoard;
+import definitions.board.GenerateBoard;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -32,7 +32,7 @@ import java.util.Optional;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DungeonChaosApplication.class)
 public class AddItemToInventory {
 
-    private final Logger log = LoggerFactory.getLogger(GetBoard.class);
+    private final Logger log = LoggerFactory.getLogger(GenerateBoard.class);
     private static final String BASE_URL = "http://localhost:";
 
     private static ResponseEntity response;
