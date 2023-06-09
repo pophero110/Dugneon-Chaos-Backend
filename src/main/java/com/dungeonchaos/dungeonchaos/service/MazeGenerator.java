@@ -18,6 +18,10 @@ public class MazeGenerator {
         this.maze = new char[height][width];
     }
 
+    /**
+     * Generates a maze.
+     * @return The generated maze as a 2D character array.
+     */
     public char[][] generateMaze() {
         // Fill the maze with walls
         for (int i = 0; i < height; i++) {
@@ -43,7 +47,11 @@ public class MazeGenerator {
     }
 
 
-
+    /**
+     * Generates a path in the maze starting from the specified coordinates (x, y).
+     * @param x The starting x-coordinate.
+     * @param y The starting y-coordinate.
+     */
     private void generatePath(int x, int y) {
         maze[y][x] = PATH;
 
@@ -73,10 +81,22 @@ public class MazeGenerator {
         }
     }
 
+    /**
+     * Checks if the specified coordinates (x, y) represent a valid path in the maze.
+     * @param x The x-coordinate to check.
+     * @param y The y-coordinate to check.
+     * @return True if the coordinates represent a valid path, false otherwise.
+     */
     private boolean isValidPath(int x, int y) {
         return (isValidTile(x,y) && maze[y][x] == WALL);
     }
 
+    /**
+     * Checks if the specified coordinates (x, y) represent a valid tile in the maze.
+     * @param x The x-coordinate to check.
+     * @param y The y-coordinate to check.
+     * @return True if the coordinates represent a valid tile, false otherwise.
+     */
     private boolean isValidTile(int x, int y) {
         return x >= 0 && x < width && y >=0 && y < height;
     }

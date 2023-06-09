@@ -26,6 +26,12 @@ public class PlayerService {
         this.inventoryRepository = inventoryRepository;
     }
 
+    /**
+     * Creates a player with the specified selected character ID.
+     * @param selectedCharacterId The ID of the selected character.
+     * @return The created player.
+     * @throws InformationNotFoundException if the character is not found.
+     */
     public Player createPlayer(Long selectedCharacterId) {
         Character character = characterRepository.findById(selectedCharacterId).orElseThrow(
                 () -> new InformationNotFoundException("Character is not found with id: " + selectedCharacterId)

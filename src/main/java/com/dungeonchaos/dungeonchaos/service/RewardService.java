@@ -31,6 +31,13 @@ public class RewardService {
     }
 
 
+    /**
+     * Creates a reward of the specified reward type for the given player and opponent.
+     * @param rewardType The type of the reward.
+     * @param player The player who will receive the reward.
+     * @param opponent The opponent defeated to earn the reward.
+     * @return The created reward.
+     */
     public Reward createReward(RewardType rewardType, Player player, Opponent opponent) {
         Reward reward = new Reward();
         reward.setPlayer(player);
@@ -42,6 +49,13 @@ public class RewardService {
         return rewardRepository.save(reward);
     }
 
+    /**
+     * Creates a reward of the specified reward type for the player with the given ID.
+     * @param rewardType The type of the reward.
+     * @param playerId The ID of the player.
+     * @return The created reward.
+     * @throws InformationNotFoundException if the player is not found.
+     */
     public Reward createReward(RewardType rewardType, Long playerId) {
         Player player = playerRepository.findById(playerId).orElseThrow(() -> new InformationNotFoundException("Player is not found with id " + playerId));
         Reward reward = new Reward();
