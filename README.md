@@ -84,7 +84,7 @@
 			<artifactId>h2</artifactId>
 			<version>2.1.214</version>
 		</dependency>
-	</dependencies>
+	</dependencies
 </details>
 
 # ERD
@@ -94,6 +94,9 @@
 
 # User story by Domain
 ![user story image](./resource/user-story.png)
+
+# API Reference
+![api-documentation](./resource/api-documentation.png)
 
 # Credit
 
