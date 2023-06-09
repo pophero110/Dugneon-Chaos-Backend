@@ -1,15 +1,6 @@
 # Dungeon Chaos Backend
 **Developer**: Jeff Ou  
-**Description**: This is a backend-only application that provides REST APIs with functionalities similar to Twitter's backend, allowing users to perform actions such as *creating, updating, and deleting tweets, creating profile, replying to a tweet,  searching for tweets, and adding hashtags*.
-# Table of Contents
-
-- [Technologies](#technologies)
-- [Project Dependencies](#project-dependencies)
-- [Project Management](#project-management)
-- [Entity Relationship Diagram](#entity-relationship-diagram)
-- [API Reference](#api-reference)
-    - [Postman Workspace](#postman-workspace)
-- [Credits](#credits)
+**Description**: A single-player board-like game with turn-based fighting that is set within a grid of blocks, players strategically navigate through the dungeon, uncovering hidden pathways, encountering dangerous monsters, and collecting valuable loot
 
 # Technologies
 **[Trello](https://github.com/users/pophero110/projects/5)**: resource management  
@@ -96,9 +87,13 @@
 	</dependencies>
 </details>
 
-# Project Management
+# ERD
+![base-entity](./resource/base-entity.png)
+![fight](./resource/fight.png)
+![inventory-and-item](./resource/inventory-and-item.png)
 
-
+# User story by Domain
+![user story image](./resource/user-story.png)
 
 # Credit
 
