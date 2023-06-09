@@ -1,7 +1,10 @@
 package com.dungeonchaos.dungeonchaos.service;
 
+import com.dungeonchaos.dungeonchaos.exception.InformationNotFoundException;
 import com.dungeonchaos.dungeonchaos.model.Board;
+import com.dungeonchaos.dungeonchaos.model.Player;
 import com.dungeonchaos.dungeonchaos.repository.BoardRepository;
+import com.dungeonchaos.dungeonchaos.repository.PlayerRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +17,7 @@ import java.util.Random;
 @Service
 public class BoardService {
     private BoardRepository boardRepository;
+    private PlayerRepository playerRepository;
 
     private static final char MONSTER_SYMBOL = 'M';
     private static final char TREASURE_SYMBOL = 'T';
@@ -23,21 +27,22 @@ public class BoardService {
 
 
     @Autowired
-    BoardService(BoardRepository boardRepository) {
+    BoardService(BoardRepository boardRepository, PlayerRepository playerRepository) {
         this.boardRepository = boardRepository;
+        this.playerRepository = playerRepository;
     }
 
-    public char[][] generateBoard() {
+    public char[][] generateBoard(Long playerId) {
+        Player player = playerRepository.findById(playerId).orElseThrow(()-> new InformationNotFoundException("Player is not found with id " + playerId));
         MazeGenerator mazeGenerator = new MazeGenerator(12, 12);
         char[][] boardMatrix = mazeGenerator.generateMaze();
-        this.generateTreasure(boardMatrix);
-        this.generateMonsters(boardMatrix);
+        this.generateTreasure(boardMatrix, player.getDifficulty());
+        this.generateMonsters(boardMatrix, player.getDifficulty());
         return boardMatrix;
     }
 
-    private void generateMonsters(char[][] boardMatrix) {
+    private void generateMonsters(char[][] boardMatrix, int playerDifficulty) {
         Random random = new Random();
-
         for (int i = 0; i < boardMatrix.length; i++) {
             for (int j = 0; j < boardMatrix[i].length; j++) {
                 char cell = boardMatrix[i][j];
@@ -50,10 +55,10 @@ public class BoardService {
         }
     }
 
-    private void generateTreasure(char[][] boardMatrix) {
+    private void generateTreasure(char[][] boardMatrix, int playerDifficulty) {
         Random random = new Random();
         int count = 0;
-        while (count < NUMBER_OF_TREASURE_PER_LEVEL) {
+        while (count < NUMBER_OF_TREASURE_PER_LEVEL + playerDifficulty) {
             int row = random.nextInt(boardMatrix.length);
             int col = random.nextInt(boardMatrix[row].length);
             char cell = boardMatrix[row][col];

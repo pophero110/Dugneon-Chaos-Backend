@@ -2,6 +2,8 @@ package definitions.board;
 
 
 import com.dungeonchaos.dungeonchaos.DungeonChaosApplication;
+import com.dungeonchaos.dungeonchaos.request.BoardRequest;
+import com.dungeonchaos.dungeonchaos.request.FightRequest;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,9 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,9 +22,9 @@ import java.util.List;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DungeonChaosApplication.class)
-public class GetBoard {
+public class GenerateBoard {
 
-    private final Logger log = LoggerFactory.getLogger(GetBoard.class);
+    private final Logger log = LoggerFactory.getLogger(GenerateBoard.class);
     private static final String BASE_URL = "http://localhost:";
 
     private static ResponseEntity response;
@@ -32,21 +32,32 @@ public class GetBoard {
     @LocalServerPort
     String port;
 
-    //TODO: Refactor
-    @Given("A board is available")
-    public void aBoardIsAvailable() {
+    private Long playerId;
+
+    @Given("A player is available")
+    public void aPlayerIsAvailable() {
+        this.playerId = 1L;
     }
 
-    @When("I fetch the board")
-    public void iFetchTheBoard() {
+    @When("the player fetch the board")
+    public void thePlayerFetchTheBoard() {
         try {
-            response = new RestTemplate().exchange(BASE_URL + port + "/api/boards", HttpMethod.GET, null, String.class);
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Content-Type", "application/json");
+
+            // Create the request body
+            BoardRequest boardRequest = new BoardRequest(this.playerId);
+
+            HttpEntity<BoardRequest> requestEntity = new HttpEntity<>(boardRequest, headers);
+
+            response = new RestTemplate().exchange(BASE_URL + port + "/api/boards", HttpMethod.POST, requestEntity, String.class);
             Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
         } catch (HttpClientErrorException e) {
 
             e.printStackTrace();
         }
     }
+
 
     @Then("The board is returned")
     public void theBoardIsReturn() {

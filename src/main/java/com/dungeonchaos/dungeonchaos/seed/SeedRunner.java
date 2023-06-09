@@ -80,43 +80,33 @@ public class SeedRunner implements ApplicationRunner {
     }
 
     private void createCharactersAndPlayer() {
-        Character warrior = new Character("Warrior", 50, 10, 10, 25);
+        Character warrior = new Character("Warrior", 50, 10, 10, 20);
         Character rogue = new Character("Rogue", 40, 15, 5, 40);
-        Character slow = new Character("Slow", 80, 15, 10, 0);
-        Character fast = new Character("Fast", 80, 15, 10, 999);
-        Character lowHp = new Character("Low HP", 5, 15, 10, 999);
-        Character highDefense = new Character("High Defense", 5, 15, 10, 999);
         Player playerWarrior = new Player(warrior);
-        Player playerRogue = new Player(rogue);
-        Player playerSlow = new Player(slow);
-        Player playerFast = new Player(fast);
-        Player playerlowHp = new Player(lowHp);
-        Player playerHighDefense = new Player(highDefense);
+        playerWarrior.setAttack(100);
+        playerWarrior.setSpeed(100);
+        playerWarrior.setDifficulty(5);
+        playerWarrior.setIdentityKey("1945538");
         playerRepository.save(playerWarrior);
-        playerRepository.save(playerRogue);
-        playerRepository.save(playerSlow);
-        playerRepository.save(playerFast);
-        playerRepository.save(playerlowHp);
-        playerRepository.save(playerHighDefense);
         characterRepository.save(warrior);
         characterRepository.save(rogue);
-        characterRepository.save(slow);
-        characterRepository.save(fast);
-        characterRepository.save(lowHp);
-        characterRepository.save(highDefense);
     }
 
     private void createMonsters() {
-        Monster goblin = new Monster("Goblin", 20, 15, 0, 20);
-        Monster badGnome = new Monster("Bad Gnome", 20, 20, 0, 30);
-        Monster zombie = new Monster("Undead", 30, 20, 2, 5);
-        Monster troll = new Monster("Troll", 40, 25, 10, 10);
-        Monster dragon = new Monster("Dragon", 50, 30, 10, 30);
+        Monster goblin = new Monster("Goblin", 20, 15, 0, 20,1);
+        Monster badGnome = new Monster("Bad Gnome", 20, 20, 0, 30,2);
+        Monster zombie = new Monster("Undead", 30, 20, 2, 5,3);
+        Monster troll = new Monster("Troll", 40, 30, 10, 10,4);
+        Monster dragon = new Monster("Dragon", 50, 35, 10, 30,5);
         monsterRepository.save(goblin);
+        monsterRepository.save(badGnome);
+        monsterRepository.save(zombie);
+        monsterRepository.save(troll);
+        monsterRepository.save(dragon);
     }
 
     private void createFight() {
-        fightService.startFight(1L, 1L);
+        fightService.startFight(1L);
     }
 
     private void createItemsAndInventory() {
@@ -183,7 +173,7 @@ public class SeedRunner implements ApplicationRunner {
             item9.setType(ItemType.EQUIPMENT);
             item9.setRarity(Rarity.RARE);
             ((Equipment) item9).setDefense(15);
-            ((Equipment) item9).setEquipmentType(EquipmentType.WEAPON);
+            ((Equipment) item9).setEquipmentType(EquipmentType.ARMOR);
 
             itemRepository.save(item1);
             itemRepository.save(item2);
@@ -225,6 +215,14 @@ public class SeedRunner implements ApplicationRunner {
             inventoryItem7.setInventory(inventory);
             inventoryItem7.setItem(item7);
 
+            InventoryItem inventoryItem8 = new InventoryItem();
+            inventoryItem8.setInventory(inventory);
+            inventoryItem8.setItem(item8);
+
+            InventoryItem inventoryItem9 = new InventoryItem();
+            inventoryItem9.setInventory(inventory);
+            inventoryItem9.setItem(item9);
+
 
 
             Set<InventoryItem> inventoryItems = new HashSet<>();
@@ -235,6 +233,8 @@ public class SeedRunner implements ApplicationRunner {
             inventoryItems.add(inventoryItem5);
             inventoryItems.add(inventoryItem6);
             inventoryItems.add(inventoryItem7);
+            inventoryItems.add(inventoryItem8);
+            inventoryItems.add(inventoryItem9);
 
             inventory.setInventoryItems(inventoryItems);
 

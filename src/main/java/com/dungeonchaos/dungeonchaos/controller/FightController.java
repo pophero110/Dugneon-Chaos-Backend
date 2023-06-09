@@ -22,7 +22,7 @@ public class FightController {
     }
     @PostMapping(path = "/start")
     public ResponseEntity<?> startFight(@RequestBody FightRequest fightRequest) {
-        Fight fight = fightService.startFight(fightRequest.getPlayerId(), fightRequest.getMonsterId());
+        Fight fight = fightService.startFight(fightRequest.getPlayerId());
         return new ResponseEntity<>(fight, HttpStatus.CREATED);
     }
 

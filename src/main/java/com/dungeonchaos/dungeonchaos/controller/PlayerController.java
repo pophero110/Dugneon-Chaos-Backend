@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/players")
@@ -31,6 +30,18 @@ public class PlayerController {
     @GetMapping(path = "/{playerId}")
     public ResponseEntity<Player> getPlayer(@PathVariable Long playerId) {
         Player createdPlayer = playerService.getPlayer(playerId);
-        return new ResponseEntity<>(createdPlayer, HttpStatus.CREATED);
+        return new ResponseEntity<>(createdPlayer, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/identityKey/{identityId}")
+    public ResponseEntity<Player> getPlayerByIdentity(@PathVariable String identityId) {
+        Player createdPlayer = playerService.getPlayerByIdentity(identityId);
+        return new ResponseEntity<>(createdPlayer, HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/{playerId}/increaseDifficultyByOne")
+    public ResponseEntity<Player> increasePlayerDifficultyByOne(@PathVariable Long playerId) {
+        Player createdPlayer = playerService.increasePlayerDifficultyByOne(playerId);
+        return new ResponseEntity<>(createdPlayer, HttpStatus.OK);
     }
 }
