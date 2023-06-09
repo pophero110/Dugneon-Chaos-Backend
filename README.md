@@ -7,9 +7,9 @@
 **IntelliJ**: development IDEA  
 **[Draw.io](https://drive.google.com/file/d/1KQNFfVow5GVSpBJ-qKArLaxjQkaPVNiU/view?usp=sharing)**: Create Entity Relationship Diagram  
 **[Postman](https://www.postman.com/jeffou-1/workspace/twitter-like-restful-api-web-application)**: APIs Testing and Documentation   
-**Sourcetree**: Git GUI
-**Cucumber**: Behavior-driven testing framework
-**JUnit**: 
+**Sourcetree**: Git GUI  
+**Cucumber**: Behavior-driven testing framework  
+**JUnit**
 
 # Project Dependencies
 <details>
