@@ -28,7 +28,7 @@ class BoardServiceTest {
     @Test
     @DisplayName("it should generate 12 x 12 board")
     public void getBoardTest() {
-        Optional<char[][]> boardMatrix = Optional.of(boardService.generateBoard(1L));
+        Optional<char[][]> boardMatrix = Optional.of(boardService.generateBoard());
         assertEquals(boardMatrix.isPresent(), true);
         assertEquals(boardMatrix.get().length, 12);
         for (char[] row : boardMatrix.get()) {
