@@ -29,10 +29,23 @@ public class InventoryService {
         this.playerRepository = playerRepository;
     }
 
+    /**
+     * Retrieves an inventory by its ID.
+     * @param inventoryId The ID of the inventory.
+     * @return The retrieved inventory.
+     * @throws InformationNotFoundException if the inventory is not found.
+     */
     public Inventory getInventoryById(Long inventoryId) {
         return inventoryRepository.findById(inventoryId).orElseThrow(() -> new InformationNotFoundException("Inventory is not found with id " + inventoryId));
     }
 
+    /**
+     * Adds an item to an inventory.
+     * @param inventoryId The ID of the inventory.
+     * @param itemId The ID of the item to be added.
+     * @return The updated inventory.
+     * @throws InformationNotFoundException if the inventory or item is not found.
+     */
     public Inventory addItemToInventory(Long inventoryId, Long itemId) {
         Inventory inventory = inventoryRepository.findById(inventoryId).orElseThrow(() -> new InformationNotFoundException("Inventory is not found with id " + inventoryId));
         Optional<InventoryItem> inventoryItem = inventoryItemRepository.findByInventory_IdAndItem_Id(inventoryId, itemId);
@@ -47,6 +60,13 @@ public class InventoryService {
         return inventoryRepository.save(inventory);
     }
 
+    /**
+     * Removes an item from an inventory.
+     * @param inventoryId The ID of the inventory.
+     * @param itemId The ID of the item to be removed.
+     * @return The updated inventory.
+     * @throws InformationNotFoundException if the inventory or item is not found.
+     */
     public Inventory removeItemFromInventory(Long inventoryId, Long itemId) {
         Inventory inventory = inventoryRepository.findById(inventoryId).orElseThrow(() -> new InformationNotFoundException("Inventory is not found with id " + inventoryId));
         InventoryItem inventoryItem = inventoryItemRepository.findByInventory_IdAndItem_Id(inventoryId, itemId).orElseThrow(() -> new InformationNotFoundException("Item is not found with id " + itemId));
