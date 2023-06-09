@@ -95,6 +95,9 @@
 # User story by Domain
 ![user story image](./resource/user-story.png)
 
+# API Reference
+![api-documentation](./resource/api-documentation.png)
+
 # Credit
 
 - Thanks to my instructor, [Suresh Sigera](https://github.com/sureshmelvinsigera/), who gave me strong encouragement and trust for building this project
