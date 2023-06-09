@@ -84,7 +84,7 @@
 			<artifactId>h2</artifactId>
 			<version>2.1.214</version>
 		</dependency>
-	</dependencies>
+	</dependencies
 </details>
 
 # ERD
