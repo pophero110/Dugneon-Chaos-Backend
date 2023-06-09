@@ -32,6 +32,12 @@ public class BoardService {
         this.playerRepository = playerRepository;
     }
 
+    /**
+     * Generates a board matrix for a given player.
+     * @param playerId The ID of the player.
+     * @return The generated board matrix.
+     * @throws InformationNotFoundException if the player is not found with the given ID.
+     */
     public char[][] generateBoard(Long playerId) {
         Player player = playerRepository.findById(playerId).orElseThrow(()-> new InformationNotFoundException("Player is not found with id " + playerId));
         MazeGenerator mazeGenerator = new MazeGenerator(12, 12);
@@ -41,6 +47,11 @@ public class BoardService {
         return boardMatrix;
     }
 
+    /**
+     * Generates treasure on the board matrix.
+     * @param boardMatrix The board matrix.
+     * @param playerDifficulty The difficulty level of the player.
+     */
     private void generateMonsters(char[][] boardMatrix, int playerDifficulty) {
         Random random = new Random();
         for (int i = 0; i < boardMatrix.length; i++) {
@@ -55,6 +66,12 @@ public class BoardService {
         }
     }
 
+
+    /**
+     * Generates treasure on the board matrix.
+     * @param boardMatrix The board matrix.
+     * @param playerDifficulty The difficulty level of the player.
+     */
     private void generateTreasure(char[][] boardMatrix, int playerDifficulty) {
         Random random = new Random();
         int count = 0;
@@ -69,6 +86,11 @@ public class BoardService {
         }
     }
 
+    /**
+     * Checks if a given cell is a valid location.
+     * @param cell The cell to check.
+     * @return True if the cell is a valid location, false otherwise.
+     */
     private static boolean isValidLocation(char cell) {
         for (char validLocation : VALID_LOCATIONS) {
             if (cell == validLocation) {

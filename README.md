@@ -9,8 +9,6 @@
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [API Reference](#api-reference)
     - [Postman Workspace](#postman-workspace)
-- [Wins](#wins)
-- [Improvement Ideas](#improvement-ideas)
 - [Credits](#credits)
 
 # Technologies

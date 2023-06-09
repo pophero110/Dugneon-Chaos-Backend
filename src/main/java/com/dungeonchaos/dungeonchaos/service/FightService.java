@@ -40,6 +40,12 @@ public class FightService {
         this.rewardService = rewardService;
     }
 
+    /**
+     * Starts a fight for a given player.
+     * @param playerId The ID of the player.
+     * @return The created fight.
+     * @throws InformationNotFoundException if the player is not found with the given ID.
+     */
     public Fight startFight(Long playerId) {
     Player player = playerRepository.findById(playerId).orElseThrow(() -> new InformationNotFoundException("Player is not found with id " + playerId));
         Monster monster = getRandomMonster(player.getDifficulty());
@@ -56,6 +62,14 @@ public class FightService {
         return fightRepository.save(fight);
     }
 
+    /**
+     * Performs an action by the player in a fight.
+     * @param fightId The ID of the fight.
+     * @param actionType The type of action to perform.
+     * @return The updated fight.
+     * @throws InformationNotFoundException if the fight is not found with the given ID.
+     * @throws InformationInvalidException if the action type is invalid.
+     */
     public Fight playerPerformAction(Long fightId, String actionType) {
         Fight fight = fightRepository.findById(fightId).orElseThrow(() -> new InformationNotFoundException("Fight is not found with id " + fightId));
         Player player = fight.getPlayer();
@@ -77,6 +91,13 @@ public class FightService {
         return fightRepository.save(fight);
     }
 
+
+    /**
+     * Performs an action by the opponent in a fight.
+     * @param fightId The ID of the fight.
+     * @return The updated fight.
+     * @throws InformationNotFoundException if the fight is not found with the given ID.
+     */
     public Fight opponentPerformAction(Long fightId) {
         Fight fight = fightRepository.findById(fightId).orElseThrow(() -> new InformationNotFoundException("Fight is not found with id " + fightId));
         Player player = fight.getPlayer();
@@ -97,6 +118,13 @@ public class FightService {
         return fightRepository.save(fight);
     }
 
+    /**
+     * Handles the player's win in a fight by creating a reward.
+     * @param fightId The ID of the fight.
+     * @return The created reward.
+     * @throws InformationNotFoundException if the fight is not found with the given ID.
+     * @throws InformationInvalidException if the fight result is not victory for the player.
+     */
     public Reward playerWinFight(Long fightId) {
         Fight fight = fightRepository.findById(fightId).orElseThrow(() -> new InformationNotFoundException("Fight is not found with id " + fightId));
         if (fight.getFightResult().equals(FightResult.VICTORY_PLAYER)) {
@@ -108,6 +136,11 @@ public class FightService {
     }
 
 
+    /**
+     * Gets a random monster based on the player's difficulty level.
+     * @param playerDifficulty The difficulty level of the player.
+     * @return The randomly selected monster.
+     */
     private Monster getRandomMonster(int playerDifficulty) {
         List<Monster> monsters = monsterRepository.findAll();
         List<Monster> filteredMonsters = monsters.stream().filter(monster -> monster.getDiffculty() <= playerDifficulty).collect(Collectors.toList());

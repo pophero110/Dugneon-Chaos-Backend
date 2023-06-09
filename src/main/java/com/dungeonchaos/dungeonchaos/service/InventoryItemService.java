@@ -36,22 +36,48 @@ public class InventoryItemService {
         this.inventoryService = inventoryService;
     }
 
+    /**
+     * Equips a weapon for the player.
+     * @param inventoryItemId The ID of the inventory item representing the weapon.
+     * @return The updated player.
+     */
     public Player equipWeapon(Long inventoryItemId) {
         return equipItem(inventoryItemId, EquipmentType.WEAPON, "weapon");
     }
 
+    /**
+     * Equips an armor for the player.
+     * @param inventoryItemId The ID of the inventory item representing the armor.
+     * @return The updated player.
+     */
     public Player equipArmor(Long inventoryItemId) {
         return equipItem(inventoryItemId, EquipmentType.ARMOR, "armor");
     }
 
+    /**
+     * Unequips the currently equipped weapon.
+     * @param inventoryItemId The ID of the inventory item representing the weapon.
+     * @return The updated player.
+     */
     public Player unequipWeapon(Long inventoryItemId) {
         return unequipItem(inventoryItemId, "weapon");
     }
 
+    /**
+     * Unequips the currently equipped armor.
+     * @param inventoryItemId The ID of the inventory item representing the armor.
+     * @return The updated player.
+     */
     public Player unequipArmor(Long inventoryItemId) {
         return unequipItem(inventoryItemId, "armor");
     }
 
+    /**
+     * Consumes a potion from the player's inventory.
+     * @param inventoryItemId The ID of the inventory item representing the potion.
+     * @return The updated player.
+     * @throws InformationInvalidException if the item is not a potion.
+     */
     public Player consumePotion(Long inventoryItemId) {
         InventoryItem inventoryItem = getInventoryItem(inventoryItemId);
         Item item = inventoryItem.getItem();
@@ -72,12 +98,24 @@ public class InventoryItemService {
         return inventoryRepository.save(inventory).getPlayer();
     }
 
+    /**
+     * Gets the numeric effect value from a potion effect string.
+     * @param potionEffect The potion effect string.
+     * @return The numeric effect value.
+     */
     private int getPotionEffectNumber(String potionEffect) {
         String numberString = potionEffect.replaceAll("\\D+", "");
         int number = Integer.parseInt(numberString);
         return number;
     }
 
+    /**
+     * Equips an item for the player.
+     * @param inventoryItemId The ID of the inventory item representing the item to equip.
+     * @param expectedType The expected equipment type.
+     * @param itemType The type of item being equipped.
+     * @return The updated player.
+     */
     private Player equipItem(Long inventoryItemId, EquipmentType expectedType, String itemType) {
         InventoryItem inventoryItem = getInventoryItem(inventoryItemId);
         validateEquipItem(inventoryItem, expectedType, itemType);
@@ -86,6 +124,12 @@ public class InventoryItemService {
         return savePlayer(inventoryItem);
     }
 
+    /**
+     * Unequips an item for the player.
+     * @param inventoryItemId The ID of the inventory item representing the item to unequip.
+     * @param itemType The type of item being unequipped.
+     * @return The updated player.
+     */
     private Player unequipItem(Long inventoryItemId, String itemType) {
         InventoryItem inventoryItem = getInventoryItem(inventoryItemId);
         validateUnequipItem(inventoryItem, itemType);
@@ -94,11 +138,24 @@ public class InventoryItemService {
         return savePlayer(inventoryItem);
     }
 
+    /**
+     * Retrieves the inventory item with the given ID.
+     * @param inventoryItemId The ID of the inventory item.
+     * @return The inventory item.
+     * @throws InformationNotFoundException if the inventory item is not found with the given ID.
+     */
     private InventoryItem getInventoryItem(Long inventoryItemId) {
         return inventoryItemRepository.findById(inventoryItemId)
                 .orElseThrow(() -> new InformationNotFoundException("InventoryItem is not found with id " + inventoryItemId));
     }
 
+    /**
+     * Validates the item before equipping it.
+     * @param inventoryItem The inventory item to validate.
+     * @param expectedType The expected equipment type.
+     * @param itemType The type of item being equipped.
+     * @throws InformationInvalidException if the item is already equipped, is not an equipment, or is of the wrong type.
+     */
     private void validateEquipItem(InventoryItem inventoryItem, EquipmentType expectedType, String itemType) {
         if (inventoryItem.isEquipped()) {
             throw new InformationInvalidException("The " + itemType + " is already equipped");
@@ -123,12 +180,22 @@ public class InventoryItemService {
         }
     }
 
+    /**
+     * Validates the item before unequipping it.
+     * @param inventoryItem The inventory item to validate.
+     * @param itemType The type of item being unequipped.
+     * @throws InformationInvalidException if the item is not equipped.
+     */
     private void validateUnequipItem(InventoryItem inventoryItem, String itemType) {
         if (!inventoryItem.isEquipped()) {
             throw new InformationInvalidException("You haven't equipped an " + itemType + " yet");
         }
     }
 
+    /**
+     * Adds the attributes of the equipped item to the player's attributes.
+     * @param inventoryItem The equipped inventory item.
+     */
     private void addEquipmentAttributesToPlayerAttributes(InventoryItem inventoryItem) {
         Equipment equipment = (Equipment) inventoryItem.getItem();
         Player player = inventoryItem.getInventory().getPlayer();
@@ -139,6 +206,11 @@ public class InventoryItemService {
         playerRepository.save(player);
     }
 
+    /**
+     * Removes the attributes of the unequipped item from the player's attributes.
+     * @param inventoryItem The unequipped inventory item.
+     * @throws InformationInvalidException if unequipping the item results in the player's health being <= 0.
+     */
     private void removeEquipmentAttributesFromPlayerAttributes(InventoryItem inventoryItem) {
         Equipment equipment = (Equipment) inventoryItem.getItem();
         Player player = inventoryItem.getInventory().getPlayer();
@@ -152,6 +224,11 @@ public class InventoryItemService {
         playerRepository.save(player);
     }
 
+    /**
+     * Saves the inventory item and returns the player.
+     * @param inventoryItem The inventory item to save.
+     * @return The updated player.
+     */
     private Player savePlayer(InventoryItem inventoryItem) {
         return inventoryItemRepository.save(inventoryItem).getInventory().getPlayer();
     }
