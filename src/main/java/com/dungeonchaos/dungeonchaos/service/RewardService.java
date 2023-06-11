@@ -50,13 +50,12 @@ public class RewardService {
     }
 
     /**
-     * Creates a reward of the specified reward type for the player with the given ID.
-     * @param rewardType The type of the reward.
+     * Creates a item reward for the player with the given ID.
      * @param playerId The ID of the player.
      * @return The created reward.
      * @throws InformationNotFoundException if the player is not found.
      */
-    public Reward createReward(RewardType rewardType, Long playerId) {
+    public Reward createItemReward(Long playerId) {
         Player player = playerRepository.findById(playerId).orElseThrow(() -> new InformationNotFoundException("Player is not found with id " + playerId));
         Reward reward = new Reward();
         List<Item> items = itemRepository.findAll();

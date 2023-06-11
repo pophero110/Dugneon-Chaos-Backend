@@ -27,7 +27,7 @@ public class RewardController {
 
     @PostMapping(path = "")
     public ResponseEntity<Reward> createReward(@RequestBody RewardRequest rewardRequest) {
-        Reward reward = rewardService.createReward(RewardType.ITEM, rewardRequest.getPlayerId());
+        Reward reward = rewardService.createItemReward(rewardRequest.getPlayerId());
         return new ResponseEntity<>(reward, HttpStatus.CREATED);
     }
 }
