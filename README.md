@@ -1,7 +1,6 @@
 # Dungeon Chaos Backend
 **Developer**: Jeff Ou  
-**Description**: A single-player board-like game with turn-based fighting that is set within a grid of blocks, players strategically navigate through the dungeon, uncovering hidden pathways, encountering dangerous monsters, and collecting valuable loot
-
+**Description**: A backend-only application that is used for a single-player board-like game with turn-based fighting that is set within a grid of blocks, players strategically navigate through the dungeon, uncovering hidden pathways, encountering dangerous monsters, and collecting valuable loot
 # Technologies
 **[Trello](https://github.com/users/pophero110/projects/5)**: resource management  
 **IntelliJ**: development IDEA  
