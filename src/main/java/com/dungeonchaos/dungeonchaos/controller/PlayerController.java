@@ -14,7 +14,7 @@ import java.util.Map;
 @RequestMapping(path = "/api/players")
 public class PlayerController {
 
-    private PlayerService playerService;
+    private final PlayerService playerService;
 
     @Autowired
     PlayerController(PlayerService playerService) {

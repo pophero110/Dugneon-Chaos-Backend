@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class InventoryItemController {
 
 
-    private InventoryItemService inventoryItemService;
+    private final InventoryItemService inventoryItemService;
 
     @Autowired
     InventoryItemController(InventoryItemService inventoryItemService) {

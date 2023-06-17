@@ -1,14 +1,13 @@
 package com.dungeonchaos.dungeonchaos.controller;
 
 import com.dungeonchaos.dungeonchaos.request.BoardRequest;
-import com.dungeonchaos.dungeonchaos.service.BoardService;
+import com.dungeonchaos.dungeonchaos.service.board.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/boards")

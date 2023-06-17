@@ -42,8 +42,7 @@ public class Combat {
         double randomValue = random.nextDouble();
 
         if (randomValue < fleeRate) {
-            FightResult fleeResult = (performer instanceof Player) ? FightResult.FLEE_PLAYER : FightResult.FLEE_MONSTER;
-            return fleeResult;
+            return (performer instanceof Player) ? FightResult.FLEE_PLAYER : FightResult.FLEE_MONSTER;
         } else {
             return FightResult.ONGOING;
         }
@@ -63,8 +62,7 @@ public class Combat {
         if (damage > 0) {
             applyDamage(target, damage);
             if (target.getHealth() <= 0) {
-                FightResult defendResult = (performer instanceof Player) ? FightResult.VICTORY_PLAYER : FightResult.VICTORY_OPPONENT;
-                return defendResult;
+                return (performer instanceof Player) ? FightResult.VICTORY_PLAYER : FightResult.VICTORY_OPPONENT;
             }
         }
         return FightResult.ONGOING;

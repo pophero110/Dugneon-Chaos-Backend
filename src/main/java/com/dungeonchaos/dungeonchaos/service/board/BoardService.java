@@ -1,17 +1,13 @@
-package com.dungeonchaos.dungeonchaos.service;
+package com.dungeonchaos.dungeonchaos.service.board;
 
 import com.dungeonchaos.dungeonchaos.exception.InformationNotFoundException;
-import com.dungeonchaos.dungeonchaos.model.Board;
 import com.dungeonchaos.dungeonchaos.model.Player;
 import com.dungeonchaos.dungeonchaos.repository.BoardRepository;
 import com.dungeonchaos.dungeonchaos.repository.PlayerRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.dungeonchaos.dungeonchaos.service.board.MazeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.Random;
 
 @Service

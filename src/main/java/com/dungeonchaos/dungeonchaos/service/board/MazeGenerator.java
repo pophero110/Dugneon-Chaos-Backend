@@ -1,4 +1,4 @@
-package com.dungeonchaos.dungeonchaos.service;
+package com.dungeonchaos.dungeonchaos.service.board;
 
 import java.util.*;
 

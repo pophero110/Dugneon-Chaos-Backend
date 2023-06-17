@@ -2,7 +2,6 @@ package com.dungeonchaos.dungeonchaos.controller;
 
 
 import com.dungeonchaos.dungeonchaos.model.Reward.Reward;
-import com.dungeonchaos.dungeonchaos.model.Reward.RewardType;
 import com.dungeonchaos.dungeonchaos.request.RewardRequest;
 import com.dungeonchaos.dungeonchaos.service.RewardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path= "/api/rewards")
 public class RewardController {
 
-    private RewardService rewardService;
+    private final RewardService rewardService;
 
     @Autowired
     RewardController(RewardService rewardService) {

@@ -1,20 +1,15 @@
 package com.dungeonchaos.dungeonchaos.service;
 
-import com.dungeonchaos.dungeonchaos.model.Board;
 import com.dungeonchaos.dungeonchaos.repository.BoardRepository;
+import com.dungeonchaos.dungeonchaos.service.board.BoardService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import org.mockito.Mockito;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
 import java.util.Optional;
 
-import static io.restassured.RestAssured.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest

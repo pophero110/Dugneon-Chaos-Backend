@@ -1,6 +1,5 @@
 package com.dungeonchaos.dungeonchaos.service;
 
-
 import com.dungeonchaos.dungeonchaos.combat.Combat;
 import com.dungeonchaos.dungeonchaos.exception.InformationInvalidException;
 import com.dungeonchaos.dungeonchaos.exception.InformationNotFoundException;
